@@ -106,6 +106,8 @@ while user_in not in ['!quit', '!q']:
             last_post = client.status_post(user_in[8:], in_reply_to_id= last_post)
         elif user_in != '!quit' and user_in != '':
             last_post = client.status_post(user_in)
+        else:
+            last_post = None
     
     if last_post is not None:
         last_post = last_post['id']
