@@ -49,6 +49,12 @@ def register():
     update_conf()
 
 
+def input_to_dict(s):
+    return dict( (k.strip(), v.strip())
+                 for k,v in (j.split('=')
+                             for j in user_in[6:].split(',') ) )
+
+
 # log us in
 def login():
     if not 'access' in conf['default'].keys():
@@ -112,8 +118,7 @@ while user_in not in ['!quit', '!q']:
         if user_in.startswith('!dict'):
             try:
                 ## converts the string into a dict
-                user_in = dict( (k.strip(), v.strip()) for k,v in (j.split('=') for j in user_in[6:].split(',') ) )
-                last_post = client.status_post(**user_in)
+                last_post = client.status_post(**input_to_dict(user_in))
             except TypeError:
                 print("Whoops, you entered a key that you shouldn't have.\nProper keys are status, visibility, spoiler_text")
         else:
